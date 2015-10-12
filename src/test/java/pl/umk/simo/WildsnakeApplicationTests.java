@@ -14,17 +14,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringApplicationConfiguration(classes = WildsnakeApplication.class)
 @WebAppConfiguration
 @IntegrationTest
-class WildsnakeApplicationTests {
+public class WildsnakeApplicationTests {
 
 
     @Test
     public void should_show_main_page() {
         // when
-        ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
+        ResponseEntity<String> entity = template.getForEntity("http://localhost:8081/", String.class);
 
         // then
         assert entity.getStatusCode() == HttpStatus.OK;
-       
+
     }
 
     TestRestTemplate template = new TestRestTemplate();
