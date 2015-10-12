@@ -21,7 +21,7 @@ public class WildApplicationTests {
 
         // then
         assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("coming soon");
+        assert entity.getBody().contains("coming");
     }
 
     TestRestTemplate template = new TestRestTemplate();
