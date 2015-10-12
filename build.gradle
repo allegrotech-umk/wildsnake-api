@@ -28,6 +28,14 @@ repositories {
     mavenCentral()
 }
 
+applicationName = "wildsnake"
+
+distributions {
+    main {
+        baseName = 'wildsnake'
+    }
+}
+
 task stage {
     dependsOn installDist
 }
