@@ -2,6 +2,7 @@ package pl.umk.simo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = WildsnakeApplication.class)
 @WebAppConfiguration
+@IntegrationTest
 public class WildsnakeApplicationTests {
 
 
