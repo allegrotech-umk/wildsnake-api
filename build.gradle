@@ -18,6 +18,8 @@ apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
 
+applicationName = "wildsnake"
+
 jar {
     baseName = 'wildsnake'
     version = '0.0.1-SNAPSHOT'
@@ -48,3 +50,5 @@ eclipse {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
+
+task stage(dependsOn: ['clean', 'installApp'])
