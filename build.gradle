@@ -4,10 +4,8 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:1.0.0"
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
     }
@@ -19,26 +17,23 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: "io.ratpack.ratpack-java"
 
 jar {
     baseName = 'wildsnake'
     version = '0.0.1-SNAPSHOT'
 }
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
-dependencies {
 
+dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-mustache')
+    compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
@@ -54,9 +49,14 @@ task stage {
     dependsOn installDist
 }
 
+
 eclipse {
     classpath {
         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
 }

@@ -1,1 +1,1 @@
-web ./build/install/wildsnake/bin/wildsnake --server.port=$PORT
+web: ./build/install/wildsnake/bin/wildsnake --server.port=$PORT
