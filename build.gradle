@@ -46,7 +46,9 @@ distributions {
     }
 }
 
-task stage(dependsOn: ['clean', 'installApp'])
+task stage {
+    dependsOn installDist
+}
 
 eclipse {
     classpath {
