@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
     }
 }
@@ -14,8 +14,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot' 
-apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'application'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'wildsnake'
@@ -33,9 +34,20 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter-test') 
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
+applicationName = "wildsnake"
+
+distributions {
+    main {
+        baseName = 'wildsnake'
+    }
+}
+
+task stage{
+    dependsOn installDist
+}
 
 eclipse {
     classpath {

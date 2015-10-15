@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class WildsnakeApplicationTests {
 
 	@Test
-	public void should_show_my_page() {
+	public void should_show_main_page() {
         //when
         ResponseEntity<String> entity = template.getForEntity("http://localhost:8081/", String.class);
 
