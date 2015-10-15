@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
@@ -21,6 +22,7 @@ jar {
     baseName = 'wildsnake'
     version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -28,15 +30,25 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
 
-    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
+applicationName = "wildsnake"
+
+distributions {
+    main {
+        baseName = 'wildsnake'
+    }
+}
+
+task stage {
+    dependsOn installDist
+}
 
 eclipse {
     classpath {

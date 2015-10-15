@@ -19,7 +19,7 @@ public class WildsnakeApplicationTests {
 	@Test
 	public void should_show_main_page(){
         //when
-        ResponseEntity<String> entity = template.getForEntity("http;//localhost:8081/", String.class);
+        ResponseEntity<String> entity = template.getForEntity("http://localhost:8081/", String.class);
 
         //then
         assert entity.getStatusCode() == HttpStatus.OK;
