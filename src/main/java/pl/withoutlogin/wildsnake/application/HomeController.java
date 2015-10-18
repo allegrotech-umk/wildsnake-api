@@ -1,7 +1,15 @@
 package pl.withoutlogin.wildsnake.application;
 
-/**
- * Created by Szymon on 12/10/15.
- */
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 public class HomeController {
+
+    @RequestMapping("/")
+    public String mainPage() {
+        return "index";
+    }
+
 }
