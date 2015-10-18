@@ -1,0 +1,40 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   .gradle/2.7/taskArtifacts/cache.properties
+#	new file:   .gradle/2.7/taskArtifacts/cache.properties.lock
+#	new file:   .gradle/2.7/taskArtifacts/fileHashes.bin
+#	new file:   .gradle/2.7/taskArtifacts/fileSnapshots.bin
+#	new file:   .gradle/2.7/taskArtifacts/outputFileStates.bin
+#	new file:   .gradle/2.7/taskArtifacts/taskArtifacts.bin
+#	new file:   .travis.yml
+#	new file:   build.gradle
+#	new file:   build/classes/main/pl/kucharski/wildsnake/WildsnakeApplication.class
+#	new file:   build/classes/main/pl/kucharski/wildsnake/application/HomeController.class
+#	new file:   build/classes/test/pl/kucharski/wildsnake/WildsnakeApplicationTests.class
+#	new file:   build/resources/main/application.properties
+#	renamed:    css/normalize.css -> build/resources/main/static/css/normalize.css
+#	renamed:    css/styles.css -> build/resources/main/static/css/styles.css
+#	new file:   build/resources/main/static/images/Thumbs.db
+#	renamed:    images/logo.png -> build/resources/main/static/images/logo.png
+#	renamed:    index.html -> build/resources/main/templates/index.html
+#	new file:   gradle/wrapper/gradle-wrapper.jar
+#	new file:   gradle/wrapper/gradle-wrapper.properties
+#	new file:   gradlew
+#	new file:   gradlew.bat
+#	new file:   src/main/java/pl/kucharski/wildsnake/WildsnakeApplication.java
+#	new file:   src/main/java/pl/kucharski/wildsnake/application/HomeController.java
+#	new file:   src/main/resources/application.properties
+#	new file:   src/main/resources/static/css/normalize.css
+#	new file:   src/main/resources/static/css/styles.css
+#	new file:   src/main/resources/static/images/Thumbs.db
+#	new file:   src/main/resources/static/images/logo.png
+#	new file:   src/main/resources/templates/index.html
+#	new file:   src/test/java/pl/kucharski/wildsnake/WildsnakeApplicationTests.java
+#	new file:   wildsnake.iml
+#
+

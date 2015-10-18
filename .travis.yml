@@ -1,4 +1,8 @@
 language: java
 jdk:
+<<<<<<< HEAD
     - oraclejdk8
 before_install: chmod +x gradlew
+=======
+  - oraclejdk8
+>>>>>>> feature/SNAKE1-landingpage
