@@ -23,7 +23,7 @@ public class WildsnakeApplicationTests {
 
         // then
         assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("coming soon");
+        assert entity.getBody().contains("Under construction");
     }
 
     TestRestTemplate template = new TestRestTemplate();
