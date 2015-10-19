@@ -24,6 +24,14 @@ public class WildsnakeApplicationTests {
         assert entity.getBody().contains("coming soon ...");
 	}
 
+    @Test
+    public void should_show_main_page_message() {
+        ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
+
+        assert entity.getStatusCode() == HttpStatus.OK;
+        assert entity.getBody().contains("Hello World");
+    }
+
     TestRestTemplate template = new TestRestTemplate();
 
 }
