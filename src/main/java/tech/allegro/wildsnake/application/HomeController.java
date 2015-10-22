@@ -1,4 +1,4 @@
-package pl.jwest.wildsnake.application;
+package tech.allegro.wildsnake.application;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
