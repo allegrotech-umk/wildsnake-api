@@ -1,1 +1,1 @@
-web: ./build/install/wildsnake/bin/wildsnake --server.port=$PORT -Dspring.profiles.active=prod
+web: ./build/install/wildsnake/bin/wildsnake --server.port=$PORT --spring.profiles.active=prod
