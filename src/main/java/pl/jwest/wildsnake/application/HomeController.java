@@ -16,5 +16,4 @@ public class HomeController {
         model.addAttribute("pageMessage", pageMessage);
         return "index";
     }
-
 }
