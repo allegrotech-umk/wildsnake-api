@@ -1,4 +1,4 @@
-package tech.allegro.wildsnake;
+package com.blackbat13.wildsnake;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

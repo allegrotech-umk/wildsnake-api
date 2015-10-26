@@ -1,1 +1,1 @@
-web: ./build/install/wildsnake/bin/wildsnake --server.port=$PORT
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar app.jar --spring.profiles.active=prod

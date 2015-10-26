@@ -1,4 +1,4 @@
-package tech.allegro.wildsnake;
+package com.blackbat13.wildsnake;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,13 +17,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class WildsnakeApplicationTests {
 
 	@Test
-	public void should_show_main_page() {
-        // when
+	public void should_shown_main_page() {
         ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
 
-        // then
         assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("coming soon");
+        assert entity.getBody().contains("coming soon ...");
+	}
+
+    @Test
+    public void should_show_main_page_message() {
+        ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
+
+        assert entity.getStatusCode() == HttpStatus.OK;
+        //assert entity.getBody().contains("Hello World");
     }
 
     TestRestTemplate template = new TestRestTemplate();

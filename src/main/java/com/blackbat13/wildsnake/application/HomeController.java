@@ -1,10 +1,13 @@
-package tech.allegro.wildsnake.application;
+package com.blackbat13.wildsnake.application;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Created by blackbat on 12.10.2015.
+ */
 @Controller
 public class HomeController {
 
@@ -16,5 +19,4 @@ public class HomeController {
         model.addAttribute("pageMessage", pageMessage);
         return "index";
     }
-
 }
