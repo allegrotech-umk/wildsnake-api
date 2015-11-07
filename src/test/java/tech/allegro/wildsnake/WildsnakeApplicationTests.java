@@ -1,4 +1,4 @@
-package pl.jwest.wildsnake;
+package tech.allegro.wildsnake;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
