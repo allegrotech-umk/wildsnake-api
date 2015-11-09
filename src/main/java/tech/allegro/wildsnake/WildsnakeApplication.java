@@ -1,4 +1,4 @@
-package pl.jwest.wildsnake;
+package tech.allegro.wildsnake;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

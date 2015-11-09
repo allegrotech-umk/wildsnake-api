@@ -13,7 +13,6 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
@@ -28,7 +27,6 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -51,14 +49,6 @@ distributions {
 
 task stage {
     dependsOn installDist
-}
-
-
-eclipse {
-    classpath {
-         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-    }
 }
 
 task wrapper(type: Wrapper) {

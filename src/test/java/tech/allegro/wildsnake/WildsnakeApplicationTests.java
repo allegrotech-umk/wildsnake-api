@@ -1,11 +1,13 @@
-package pl.jwest.wildsnake;
+package tech.allegro.wildsnake;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringApplicationConfiguration(classes = WildsnakeApplication.class)
 @WebAppConfiguration
 @IntegrationTest
+@ActiveProfiles("test")
 public class WildsnakeApplicationTests {
 
 	@Test
@@ -23,7 +26,7 @@ public class WildsnakeApplicationTests {
 
         // then
         assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("coming soon");
+        assert entity.getBody().contains("Under construction");
     }
 
     TestRestTemplate template = new TestRestTemplate();
