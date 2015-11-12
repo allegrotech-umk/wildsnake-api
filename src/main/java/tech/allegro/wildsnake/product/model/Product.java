@@ -11,9 +11,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    public String name;
-    public String imageUrl;
-    public String description;
+    private String name;
+    private String imageUrl;
+    private String description;
 
     public Product() {
     }

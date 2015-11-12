@@ -20,7 +20,7 @@ public class ShowcaseService {
     }
 
     public List<ShowcaseItem> getItems() {
-        List<Product> productList = productRepository.findFirst3ByOrderByIdAsc();
+        List<Product> productList = productRepository.findFirst3ByOrderByIdDesc();
         return prepareShowcaseItems(productList);
     }
 
