@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tech.allegro.wildsnake.integration.Assertion.ShowCaseItemResultAssert;
-import tech.allegro.wildsnake.integration.builders.ProductListBuilder;
+import tech.allegro.wildsnake.integration.builders.ProductListFactory;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
 import tech.allegro.wildsnake.showcase.service.ShowcaseService;
@@ -44,8 +44,7 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
     @Test
     public void shouldRetrieveLast3ProductsFromRepository() {
         givenProduct()
-                .times(NUMBER_OF_SAVED_PRODUCTS)
-                .buildAndSave();
+                .buildNumberOfProductsAndSave(NUMBER_OF_SAVED_PRODUCTS);
 
         whenRetrivalFromRepositoryOccurs();
 
@@ -55,8 +54,8 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
                 .newest();
     }
 
-    private ProductListBuilder givenProduct() {
-        return new ProductListBuilder(realProductRepository);
+    private ProductListFactory givenProduct() {
+        return new ProductListFactory(realProductRepository);
     }
 
     private void whenRetrivalFromRepositoryOccurs() {

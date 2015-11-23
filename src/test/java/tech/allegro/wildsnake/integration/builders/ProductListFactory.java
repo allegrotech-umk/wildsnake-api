@@ -4,22 +4,17 @@ import tech.allegro.wildsnake.product.repository.ProductRepository;
 
 import java.util.stream.IntStream;
 
-public class ProductListBuilder {
+public class ProductListFactory {
     private final ProductRepository repository;
-    private int times = 1;
 
-    public ProductListBuilder(ProductRepository repository) {
+    public ProductListFactory(ProductRepository repository) {
         this.repository = repository;
     }
 
-    public void buildAndSave() {
-        IntStream.range(0, times).forEachOrdered(number -> {
+    public void buildNumberOfProductsAndSave(int numberOfProducts) {
+        IntStream.range(0, numberOfProducts).forEachOrdered(number -> {
             repository.save(new ProductBuilder(String.format("product %s", number)).build());
         });
     }
 
-    public ProductListBuilder times(int number) {
-        this.times = number;
-        return this;
-    }
 }
