@@ -16,4 +16,5 @@ public class ShowcaseItem {
     public String getImageUrl() {
         return imageUrl;
     }
+
 }
