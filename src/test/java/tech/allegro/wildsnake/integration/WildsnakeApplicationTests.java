@@ -14,6 +14,8 @@ import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
 
@@ -33,9 +35,9 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
         ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
 
         // then
-        assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("Under construction");
-//        assert entity.getBody().contains("price");
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody()).contains("Under construction");
+//        assertThat(entity.getBody()).contains("price");
     }
 
     //BDD way
