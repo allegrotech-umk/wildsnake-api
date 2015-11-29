@@ -22,6 +22,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String mainPage(Model model) {
+        
         model.addAttribute("pageMessage", pageMessage);
         model.addAttribute("showcaseItems", showcaseService.getItems());
         return "index";
