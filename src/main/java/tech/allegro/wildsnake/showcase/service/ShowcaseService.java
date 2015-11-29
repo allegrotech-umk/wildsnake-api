@@ -26,7 +26,7 @@ public class ShowcaseService {
 
     private List<ShowcaseItem> prepareShowcaseItems(List<Product> productList) {
         return productList.stream().map(
-                product -> new ShowcaseItem(product.getName(), product.getImageUrl())
+                product -> new ShowcaseItem(product.getName(), product.getImageUrl(),product.getPrice())
         ).collect(Collectors.toList());
     }
 }

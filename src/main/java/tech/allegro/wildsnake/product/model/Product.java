@@ -13,14 +13,16 @@ public class Product {
     private String name;
     private String imageUrl;
     private String description;
+    private int price;
 
     public Product() {
     }
 
-    public Product(String name, String imageUrl, String description) {
+    public Product(String name, String imageUrl, String description,int price) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
+        this.price = price;
     }
 
     public String getName() {
@@ -35,4 +37,7 @@ public class Product {
         return description;
     }
 
+    public int getPrice() {
+        return price;
+    }
 }

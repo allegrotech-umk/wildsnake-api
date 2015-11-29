@@ -8,6 +8,7 @@ public class ProductBuilder {
     private String name;
     private String imageUrl = "http://localhost/image";
     private String description = "description";
+    private int price=0;
 
 
     public ProductBuilder(String name) {
@@ -15,6 +16,6 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(name, imageUrl, description);
+        return new Product(name, imageUrl, description,price);
     }
 }
