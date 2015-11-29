@@ -12,5 +12,5 @@ import tech.allegro.wildsnake.WildsnakeApplication;
 @IntegrationTest
 @ActiveProfiles("test")
 public class WildSnakeIntegrationTest {
-    TestRestTemplate template = new TestRestTemplate();
+    public TestRestTemplate template = new TestRestTemplate();
 }

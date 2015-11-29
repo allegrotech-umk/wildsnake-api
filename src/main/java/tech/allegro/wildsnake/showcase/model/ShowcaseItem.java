@@ -1,10 +1,14 @@
 package tech.allegro.wildsnake.showcase.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ShowcaseItem {
     private final String title;
     private final String imageUrl;
 
-    public ShowcaseItem(String title, String imageUrl) {
+    @JsonCreator
+    public ShowcaseItem(@JsonProperty("title") String title, @JsonProperty("imageUrl") String imageUrl) {
         this.title = title;
         this.imageUrl = imageUrl;
     }
