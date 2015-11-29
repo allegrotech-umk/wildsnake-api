@@ -13,11 +13,21 @@
   <p class="text">{{ pageMessage }}</p>
 
   <h1>Top products</h1>
-  {{#showcaseItems}}
-  <ul>
-    <li>{{title}}</li>
-  </ul>
-  {{/showcaseItems}}
+
+  <table class="product-table">
+    <thead>
+      <th>name</th>
+      <th>price</th>
+    </thead>
+    <tbody>
+    {{#showcaseItems}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{price}}</td>
+      </tr>
+    {{/showcaseItems}}
+    </tbody>
+  </table>
 </div>
 </body>
 </html>

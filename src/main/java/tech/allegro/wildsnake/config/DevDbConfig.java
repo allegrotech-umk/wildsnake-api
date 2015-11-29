@@ -17,12 +17,12 @@ public class DevDbConfig {
 
     @PostConstruct
     public void populateDatabase() {
-        repository.save(new Product("1Snake", "", ""));
-        repository.save(new Product("2Snake", "", ""));
-        repository.save(new Product("3Snake", "", ""));
-        repository.save(new Product("4Snake", "", ""));
-        repository.save(new Product("5Snake", "", ""));
-        repository.save(new Product("6Snake", "", ""));
+        repository.save(new Product("1Snake", "", "", 55));
+        repository.save(new Product("2Snake", "", "", 66));
+        repository.save(new Product("3Snake", "", "", 77));
+        repository.save(new Product("4Snake", "", "", 88));
+        repository.save(new Product("5Snake", "", "", 99));
+        repository.save(new Product("6Snake", "", "", 111));
     }
 
 }

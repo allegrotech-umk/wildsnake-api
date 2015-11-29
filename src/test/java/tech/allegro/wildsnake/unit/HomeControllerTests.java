@@ -38,7 +38,7 @@ public class HomeControllerTests {
     @Test
     public void shouldReturnHomePage() throws Exception {
         ReflectionTestUtils.setField(homeController, "pageMessage", "Under Constr");
-        showcaseItems = Arrays.asList(new ShowcaseItem("title1", "http://localhost/image1"), new ShowcaseItem("title2", "http://localhost/image2"));
+        showcaseItems = Arrays.asList(new ShowcaseItem("title1", "http://localhost/image1", 55), new ShowcaseItem("title2", "http://localhost/image2", 66));
         when(showcaseService.getItems()).thenReturn(showcaseItems);
 
         assertEquals("index", homeController.mainPage(model));

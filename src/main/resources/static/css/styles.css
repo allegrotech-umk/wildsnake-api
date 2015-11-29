@@ -51,4 +51,7 @@ body {
   background: linear-gradient(to right, #fff 0, #6ecbd4 15%, #6ecbd4 85%, #fff 100%)
 }
 
+.container .product-table { margin: 0 auto; }
+.container .product-table thead th { width: 20%; }
+
 
