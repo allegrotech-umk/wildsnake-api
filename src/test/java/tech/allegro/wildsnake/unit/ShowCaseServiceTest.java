@@ -30,10 +30,10 @@ public class ShowCaseServiceTest {
     public void getShowCaseItemsShouldReturnItems() throws Exception {
         ShowcaseService showcaseService = new ShowcaseService(productRepository);
 
-        List<Product> products = Arrays.asList(new Product("title1", "http://localhost/image1", "description1",100), new Product("title2", "http://localhost/image2", "description2",120));
+        List<Product> products = Arrays.asList(new Product("title1", "http://localhost/image1", "description1", 100), new Product("title2", "http://localhost/image2", "description2", 120));
         when(productRepository.findFirst3ByOrderByIdDesc()).thenReturn(products);
 
-        List<ShowcaseItem> expectedItems = Arrays.asList(new ShowcaseItem("title1", "http://localhost/image1",100), new ShowcaseItem("title2", "http://localhost/image2",120));
+        List<ShowcaseItem> expectedItems = Arrays.asList(new ShowcaseItem("title1", "http://localhost/image1", 100), new ShowcaseItem("title2", "http://localhost/image2", 120));
 
         List<ShowcaseItem> result = showcaseService.getItems();
         assertThat(result.get(0).getTitle()).isEqualTo(expectedItems.get(0).getTitle());

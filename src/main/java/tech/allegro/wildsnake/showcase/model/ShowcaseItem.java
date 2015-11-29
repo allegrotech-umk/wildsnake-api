@@ -5,7 +5,7 @@ public class ShowcaseItem {
     private final String imageUrl;
     private final int price;
 
-    public ShowcaseItem(String title, String imageUrl,int price) {
+    public ShowcaseItem(String title, String imageUrl, int price) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.price = price;
