@@ -1,5 +1,8 @@
 package tech.allegro.wildsnake.product.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +20,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String imageUrl, String description) {
+    @JsonCreator
+    public Product(@JsonProperty("name") String name, @JsonProperty("imageUrl") String imageUrl, @JsonProperty("description") String description) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
