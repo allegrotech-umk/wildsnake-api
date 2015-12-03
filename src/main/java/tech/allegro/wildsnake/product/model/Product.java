@@ -3,6 +3,7 @@ package tech.allegro.wildsnake.product.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 public class Product {
@@ -13,12 +14,12 @@ public class Product {
     private String name;
     private String imageUrl;
     private String description;
-    private int price;
+    private BigDecimal price;
 
     public Product() {
     }
 
-    public Product(String name, String imageUrl, String description, int price) {
+    public Product(String name, String imageUrl, String description, BigDecimal price) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -37,7 +38,7 @@ public class Product {
         return description;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 }

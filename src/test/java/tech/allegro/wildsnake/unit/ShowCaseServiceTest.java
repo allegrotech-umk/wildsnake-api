@@ -3,11 +3,14 @@ package tech.allegro.wildsnake.unit;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import tech.allegro.wildsnake.integration.builders.ProductBuilder;
+import tech.allegro.wildsnake.integration.builders.ShowCaseItemBuilder;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
 import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,10 +33,10 @@ public class ShowCaseServiceTest {
     public void getShowCaseItemsShouldReturnItems() throws Exception {
         ShowcaseService showcaseService = new ShowcaseService(productRepository);
 
-        List<Product> products = Arrays.asList(new Product("title1", "http://localhost/image1", "description1", 100), new Product("title2", "http://localhost/image2", "description2", 120));
+        List<Product> products = Arrays.asList(new ProductBuilder("title1").withPrice(BigDecimal.TEN).build(), new ProductBuilder("title2").withPrice(BigDecimal.TEN).build());
         when(productRepository.findFirst3ByOrderByIdDesc()).thenReturn(products);
 
-        List<ShowcaseItem> expectedItems = Arrays.asList(new ShowcaseItem("title1", "http://localhost/image1", 100), new ShowcaseItem("title2", "http://localhost/image2", 120));
+        List<ShowcaseItem> expectedItems = Arrays.asList(new ShowCaseItemBuilder("title1").withPrice(BigDecimal.TEN).build(), new ShowCaseItemBuilder("title2").withPrice(BigDecimal.TEN).build());
 
         List<ShowcaseItem> result = showcaseService.getItems();
         assertThat(result.get(0).getTitle()).isEqualTo(expectedItems.get(0).getTitle());
