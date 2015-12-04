@@ -6,25 +6,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 public class Product {
+
+    private final String name;
+    private final String imageUrl;
+    private final String description;
+    private final BigDecimal price;
     @Id
     @GeneratedValue
     private long id;
 
-    private String name;
-    private String imageUrl;
-    private String description;
-
     public Product() {
+        this.name = null;
+        this.imageUrl = null;
+        this.description = null;
+        this.price = null;
     }
 
     @JsonCreator
-    public Product(@JsonProperty("name") String name, @JsonProperty("imageUrl") String imageUrl, @JsonProperty("description") String description) {
+    public Product(
+            @JsonProperty("name") String name,
+            @JsonProperty("imageUrl") String imageUrl,
+            @JsonProperty("description") String description,
+            @JsonProperty("price") BigDecimal price) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
+        this.price = price;
     }
 
     public String getName() {
@@ -39,4 +50,7 @@ public class Product {
         return description;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
 }

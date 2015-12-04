@@ -21,12 +21,13 @@ public class ShowcaseService {
 
     public List<ShowcaseItem> getItems() {
         List<Product> productList = productRepository.findFirst3ByOrderByIdDesc();
+        System.out.println(productList);
         return prepareShowcaseItems(productList);
     }
 
     private List<ShowcaseItem> prepareShowcaseItems(List<Product> productList) {
         return productList.stream().map(
-                product -> new ShowcaseItem(product.getName(), product.getImageUrl())
+                product -> new ShowcaseItem(product.getName(), product.getImageUrl(), product.getPrice())
         ).collect(Collectors.toList());
     }
 }

@@ -38,7 +38,7 @@ public class ProductResultAssert {
         IntStream.range(0, limit).forEach(index -> {
             assertThat(expectedProducts.get(storedNumber - (limit - index)).getName()).isEqualTo(result.get(limit - index - 1).getName());
             assertThat(expectedProducts.get(storedNumber - (limit - index)).getImageUrl()).isEqualTo(result.get(limit - index - 1).getImageUrl());
-//            assertThat(expectedProducts.get(storedNumber - (limit - index)).getPrice()).isEqualTo(result.get(limit-index-1).getPrice());
+            assertThat(expectedProducts.get(storedNumber - (limit - index)).getPrice()).isEqualTo(result.get(limit - index - 1).getPrice());
         });
         return this;
     }

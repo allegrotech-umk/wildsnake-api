@@ -43,7 +43,7 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
         // then
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(entity.getBody()).contains("Under construction");
-//        assertThat(entity.getBody()).contains("price");
+        assertThat(entity.getBody()).contains("price");
     }
 
     //BDD way

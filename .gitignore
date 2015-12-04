@@ -1,4 +1,24 @@
-.idea/
-wildsnake.iml
-build/
-.gradle/
+# Intellij Idea project files
+.idea
+*.iml
+*.ipr
+*.iws
+
+# gradle config
+.gradle
+
+# project binaries
+build
+out
+classes
+
+# sonar
+sonar-project.properties
+.sonar
+
+# mac os x
+.DS_Store
+
+# netbeans
+.nb-gradle
+
