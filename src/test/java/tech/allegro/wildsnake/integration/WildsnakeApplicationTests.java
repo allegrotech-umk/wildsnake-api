@@ -1,5 +1,6 @@
 package tech.allegro.wildsnake.integration;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
     ProductRepository realProductRepository;
 
     private List<ShowcaseItem> result;
+
+    @Before
+    public void setup() {
+        realProductRepository.deleteAll();
+    }
 
     @Test
     public void should_show_main_page() {

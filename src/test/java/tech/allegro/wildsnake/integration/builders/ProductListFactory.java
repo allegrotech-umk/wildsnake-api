@@ -13,7 +13,7 @@ public class ProductListFactory {
 
     public void buildNumberOfProductsAndSave(int numberOfProducts) {
         IntStream.range(0, numberOfProducts).forEachOrdered(number -> {
-            repository.save(new ProductBuilder(String.format("product %s", number)).build());
+            repository.save(new ProductBuilder(String.format("product_%s", number)).build());
         });
     }
 
