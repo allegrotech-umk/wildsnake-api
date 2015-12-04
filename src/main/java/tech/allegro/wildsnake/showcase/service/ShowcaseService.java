@@ -21,7 +21,6 @@ public class ShowcaseService {
 
     public List<ShowcaseItem> getItems() {
         List<Product> productList = productRepository.findFirst3ByOrderByIdDesc();
-        System.out.println(productList);
         return prepareShowcaseItems(productList);
     }
 

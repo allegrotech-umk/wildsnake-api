@@ -19,8 +19,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ActiveProfiles("test")
 public class WildsnakeApplicationTests {
 
-    TestRestTemplate template = new TestRestTemplate();
-
     @Test
     public void should_show_main_page() {
         // when
@@ -30,5 +28,7 @@ public class WildsnakeApplicationTests {
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(entity.getBody()).contains("Under construction");
     }
+
+    TestRestTemplate template = new TestRestTemplate();
 
 }
