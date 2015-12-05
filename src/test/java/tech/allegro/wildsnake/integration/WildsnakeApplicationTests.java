@@ -1,5 +1,6 @@
 package tech.allegro.wildsnake.integration;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
 
     private static final int NUMBER_OF_SAVED_PRODUCTS = 6;
-
-    @Autowired
-    ShowcaseService showcaseService;
-
-    @Autowired
-    ProductRepository realProductRepository;
-
-    private List<ShowcaseItem> result;
 
     @Test
     public void should_show_main_page() {
@@ -53,6 +46,20 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
                 .hasNumberOfItems(3)
                 .newest();
     }
+
+    @Autowired
+    ShowcaseService showcaseService;
+
+    @Autowired
+    ProductRepository realProductRepository;
+
+    private List<ShowcaseItem> result;
+
+    @Before
+    public void setup() {
+        realProductRepository.deleteAll();
+    }
+
 
     private ProductListFactory givenProduct() {
         return new ProductListFactory(realProductRepository);
