@@ -7,9 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import tech.allegro.wildsnake.integration.Assertion.ProductResultAssert;
+import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
-import tech.allegro.wildsnake.integration.builders.ProductBuilder;
 import tech.allegro.wildsnake.integration.builders.ProductListFactory;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
@@ -50,26 +49,26 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     @Ignore
     @Test
     public void should_get_one_product() {
-        givenProduct()
+        List<Product> givenProducts = givenProduct()
                 .buildNumberOfProductsAndSave(1);
 
         Product product = thenGetOneProductFromApi();
 
-        assertThat(product).isEqualToComparingFieldByField(new ProductBuilder(String.format("product_%s", 0)).build());
+        assertThat(givenProducts.get(0)).isEqualToComparingFieldByField(product);
     }
 
     @Ignore
     @Test
     public void should_get_three_newest_products() {
-        givenProduct()
+        List<Product> givenProduct = givenProduct()
                 .buildNumberOfProductsAndSave(6);
 
-        List<Product> products = thenGet3NewestProductsFromApi();
+        List<Product> products = thenGetNumberOfNewestProductsFromApi(3);
 
-        thenResult(products)
+        ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(3)
-                .newest();
+                .newestOf(givenProduct);
     }
 
     @Before
@@ -89,12 +88,7 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         return template.getForEntity("http://localhost:8080/api/v1/products/product_0", Product.class).getBody();
     }
 
-    private List<Product> thenGet3NewestProductsFromApi() {
-        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products?order=desc&limit=3", Product[].class).getBody());
+    private List<Product> thenGetNumberOfNewestProductsFromApi(int number) {
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), Product[].class).getBody());
     }
-
-    private ProductResultAssert thenResult(List<Product> products) {
-        return new ProductResultAssert(products, NUMBER_OF_SAVED_PRODUCTS);
-    }
-
 }
