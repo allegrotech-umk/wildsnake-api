@@ -60,7 +60,6 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
                 .buildNumberOfProductsAndSave(6);
 
         List<Product> products = thenGet3NewestProductsFromApi();
-        System.out.println(products);
 
         thenResult(products)
                 .isSuccessful()
