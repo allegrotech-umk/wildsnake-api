@@ -19,6 +19,17 @@ public class Product {
     @GeneratedValue
     private long id;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", id=" + id +
+                '}';
+    }
+
     public Product() {
         this.name = null;
         this.imageUrl = null;
