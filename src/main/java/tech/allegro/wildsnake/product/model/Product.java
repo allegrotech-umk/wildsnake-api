@@ -53,4 +53,15 @@ public class Product {
     public BigDecimal getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", id=" + id +
+                '}';
+    }
 }
