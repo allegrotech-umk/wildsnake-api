@@ -2,7 +2,6 @@ package tech.allegro.wildsnake.integration.api;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     @Autowired
     ProductRepository realProductRepository;
 
-    @Ignore
     @Test
     public void should_get_empty_list_of_products() {
         givenProduct()
@@ -36,7 +34,6 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         assertThat(products).isEmpty();
     }
 
-    @Ignore
     @Test
     public void should_get_3_products() {
         givenProduct()
@@ -47,7 +44,6 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         assertThat(products).hasSize(3);
     }
 
-    @Ignore
     @Test
     public void should_get_one_product() {
         givenProduct()
@@ -58,7 +54,6 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         assertThat(product).isEqualToComparingFieldByField(new ProductBuilder(String.format("product_%s", 0)).build());
     }
 
-    @Ignore
     @Test
     public void should_get_three_newest_products() {
         givenProduct()
