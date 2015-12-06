@@ -33,7 +33,7 @@ public class ProductResultAssert {
     public ProductResultAssert newest() {
         List<Product> expectedProducts = new ArrayList<>();
         IntStream.range(0, storedNumber).forEach(number -> {
-            expectedProducts.add(new ProductBuilder(String.format("product %s", number)).build());
+            expectedProducts.add(new ProductBuilder(String.format("product_%s", number)).build());
         });
         IntStream.range(0, limit).forEach(index -> {
             assertThat(expectedProducts.get(storedNumber - (limit - index)).getName()).isEqualTo(result.get(limit - index - 1).getName());
