@@ -1,7 +1,10 @@
 package tech.allegro.wildsnake.integration.builders;
 
+import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class ProductListFactory {
@@ -11,10 +14,14 @@ public class ProductListFactory {
         this.repository = repository;
     }
 
-    public void buildNumberOfProductsAndSave(int numberOfProducts) {
+    public List<Product> buildNumberOfProductsAndSave(int numberOfProducts) {
+        List<Product> productList = new ArrayList<>();
         IntStream.range(0, numberOfProducts).forEachOrdered(number -> {
-            repository.save(new ProductBuilder(String.format("product_%s", number)).build());
+            Product product = new ProductBuilder(String.format("product_%s", number)).build();
+            repository.save(product);
+            productList.add(product);
         });
+        return productList;
     }
 
 }
