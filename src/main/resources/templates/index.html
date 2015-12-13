@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html ng-app="wildsnake">
 <head>
   <meta charset="utf-8"/>
   <title>wilde snake</title>
   <link rel="stylesheet" media="all" type="text/css" href="css/normalize.css"/>
   <link rel="stylesheet" media="all" type="text/css" href="css/styles.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="scripts/main.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container" ng-controller="WildsnakeCtrl as ctrl">
   <img src="images/logo.png" alt="wilde snake" class="logo"/>
 
   <p class="text">{{ pageMessage }}</p>
 
   <h1>Top products with price</h1>
-  <ul class="products"></ul>
+  <ul class="products">
+    <li ng-repeat="product in ctrl.products">
+      [[product.title]] - [[product.price]]
+    </li>
+  </ul>
 </div>
-<script src="scripts/main.js"></script>
 </body>
 </html>
