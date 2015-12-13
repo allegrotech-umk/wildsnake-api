@@ -11,10 +11,8 @@
 
   function getProducts() {
     window.fetch("/products")
-      .then((response) => {
-        return response.json();
-      })
-      .then((products) => {
+      .then(response => response.json())
+      .then(products => {
         products.forEach(insert);
       });
   }
