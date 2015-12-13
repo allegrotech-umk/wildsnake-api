@@ -12,9 +12,7 @@
   function getProducts() {
     window.fetch("/products")
       .then(response => response.json())
-      .then(products => {
-        products.forEach(insert);
-      });
+      .then(products => products.forEach(insert));
   }
 
   document.addEventListener("DOMContentLoaded", getProducts);
