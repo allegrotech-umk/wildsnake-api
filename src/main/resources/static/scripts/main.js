@@ -1,7 +1,5 @@
 function wildsnakeCtrl($http) {
-  $http.get('/products').then(response => {
-    this.products = response.data;
-  });
+  $http.get('/products').then(response => this.products = response.data);
 }
 
 function wildsnakeConfig ($interpolateProvider) {
