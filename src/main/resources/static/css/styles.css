@@ -16,8 +16,6 @@ body {
 }
 
 .container .text {
-  /*border-bottom: 1px solid #6ecbd4;*/
-  /*border-top: 1px solid #6ecbd4;*/
   position: relative;
   font-size: 40px;
   padding: 20px 0;
