@@ -2,15 +2,14 @@ package tech.allegro.wildsnake.integration.api;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
-import tech.allegro.wildsnake.integration.builders.ProductListFactory;
-import tech.allegro.wildsnake.product.model.Product;
+import tech.allegro.wildsnake.integration.builders.ProductDomainListFactory;
+import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
 import java.util.List;
@@ -24,46 +23,42 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     @Autowired
     ProductRepository realProductRepository;
 
-    @Ignore
     @Test
     public void should_get_empty_list_of_products() {
         givenProduct()
                 .buildNumberOfProductsAndSave(0);
 
-        List<Product> products = thenGetProductsFromApi();
+        List<ProductDomain> products = thenGetProductsFromApi();
 
         assertThat(products).isEmpty();
     }
 
-    @Ignore
     @Test
     public void should_get_3_products() {
         givenProduct()
                 .buildNumberOfProductsAndSave(3);
 
-        List<Product> products = thenGetProductsFromApi();
+        List<ProductDomain> products = thenGetProductsFromApi();
 
         assertThat(products).hasSize(3);
     }
 
-    @Ignore
     @Test
     public void should_get_one_product() {
-        List<Product> givenProducts = givenProduct()
+        List<ProductDomain> givenProducts = givenProduct()
                 .buildNumberOfProductsAndSave(1);
 
-        Product product = thenGetOneProductFromApi();
+        ProductDomain product = thenGetOneProductFromApi();
 
         assertThat(givenProducts.get(0)).isEqualToComparingFieldByField(product);
     }
 
-    @Ignore
     @Test
     public void should_get_three_newest_products() {
-        List<Product> givenProduct = givenProduct()
+        List<ProductDomain> givenProduct = givenProduct()
                 .buildNumberOfProductsAndSave(6);
 
-        List<Product> products = thenGetNumberOfNewestProductsFromApi(3);
+        List<ProductDomain> products = thenGetNumberOfNewestProductsFromApi(3);
 
         ProductListAssert.assertThat(products)
                 .isSuccessful()
@@ -76,19 +71,19 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         realProductRepository.deleteAll();
     }
 
-    private ProductListFactory givenProduct() {
-        return new ProductListFactory(realProductRepository);
+    private ProductDomainListFactory givenProduct() {
+        return new ProductDomainListFactory(realProductRepository);
     }
 
-    private List<Product> thenGetProductsFromApi() {
-        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products", Product[].class).getBody());
+    private List<ProductDomain> thenGetProductsFromApi() {
+        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products", ProductDomain[].class).getBody());
     }
 
-    private Product thenGetOneProductFromApi() {
-        return template.getForEntity("http://localhost:8080/api/v1/products/product_0", Product.class).getBody();
+    private ProductDomain thenGetOneProductFromApi() {
+        return template.getForEntity("http://localhost:8080/api/v1/products/product_0", ProductDomain.class).getBody();
     }
 
-    private List<Product> thenGetNumberOfNewestProductsFromApi(int number) {
-        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), Product[].class).getBody());
+    private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
     }
 }
