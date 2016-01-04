@@ -5,6 +5,7 @@
   <title>wilde snake</title>
   <link rel="stylesheet" media="all" type="text/css" href="css/normalize.css"/>
   <link rel="stylesheet" media="all" type="text/css" href="css/styles.css"/>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 <body>
@@ -13,10 +14,15 @@
 
   <p class="text">{{ pageMessage }}</p>
 
-  <h1>Top products with price</h1>
-  <ul class="products">
-    <li ng-repeat="product in ctrl.products">
-      [[product.title]] - [[product.price]]
+  <h1>Top products</h1>
+
+  <ul class="product-grid">
+    <li class="item" ng-repeat="product in ctrl.products">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=180%C3%97160&w=180&h=160" />
+      <div class="bottom-row">
+        <div class="pull-left">[[product.name]]</div>
+        <div class="pull-right">[[product.price]]</div>
+      </div>
     </li>
   </ul>
 </div>

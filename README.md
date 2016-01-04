@@ -8,6 +8,15 @@
 ./gradlew run
 ```
 
+## Development
+
+```sh
+# install npm dependencies
+npm i
+# watch file changes
+grunt watch
+```
+
 ## License
 
 MIT

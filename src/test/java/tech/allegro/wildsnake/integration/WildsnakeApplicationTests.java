@@ -22,6 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
 
     private static final int NUMBER_OF_SAVED_PRODUCTS = 6;
+    @Autowired
+    ShowcaseService showcaseService;
+    @Autowired
+    ProductRepository realProductRepository;
 
     @Test
     public void should_show_main_page() {
@@ -47,12 +51,6 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
                 .hasNumberOfItems(3)
                 .newestOf(givenProduct);
     }
-
-    @Autowired
-    ShowcaseService showcaseService;
-    
-    @Autowired
-    ProductRepository realProductRepository;
 
     @Before
     public void setup() {
