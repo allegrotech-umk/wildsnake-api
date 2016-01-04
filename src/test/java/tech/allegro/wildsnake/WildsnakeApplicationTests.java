@@ -1,5 +1,6 @@
 package tech.allegro.wildsnake;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -18,16 +19,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ActiveProfiles("test")
 public class WildsnakeApplicationTests {
 
+    TestRestTemplate template = new TestRestTemplate();
+
     @Test
     public void should_show_main_page() {
         // when
         ResponseEntity<String> entity = template.getForEntity("http://localhost:8080/", String.class);
 
         // then
-        assert entity.getStatusCode() == HttpStatus.OK;
-        assert entity.getBody().contains("Under construction");
+        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(entity.getBody()).contains("Under construction");
     }
-
-    TestRestTemplate template = new TestRestTemplate();
 
 }
