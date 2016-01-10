@@ -1,19 +1,20 @@
 package tech.allegro.wildsnake.integration.Assertion;
 
 import org.assertj.core.api.ListAssert;
-import tech.allegro.wildsnake.product.model.Product;
+import tech.allegro.wildsnake.model.ProductDomain;
 
+import java.util.Collections;
 import java.util.List;
 
-public class ProductListAssert extends ListAssert<Product> {
-    private List<Product> actual;
+public class ProductListAssert extends ListAssert<ProductDomain> {
+    private List<ProductDomain> actual;
 
-    protected ProductListAssert(List<Product> productList) {
+    protected ProductListAssert(List<ProductDomain> productList) {
         super(productList);
         this.actual = productList;
     }
 
-    public static ProductListAssert assertThat(List<Product> actual) {
+    public static ProductListAssert assertThat(List<ProductDomain> actual) {
         return new ProductListAssert(actual);
     }
 
@@ -27,9 +28,10 @@ public class ProductListAssert extends ListAssert<Product> {
         return this;
     }
 
-    public ProductListAssert newestOf(List<Product> productList) {
-        List<Product> newestProducts = productList.subList(productList.size() - actual.size(), productList.size());
-        assertThat(actual).containsExactly(newestProducts.toArray(new Product[newestProducts.size()]));
+    public ProductListAssert newestOf(List<ProductDomain> productList) {
+        List<ProductDomain> newestProducts = productList.subList(productList.size() - actual.size(), productList.size());
+        Collections.reverse(newestProducts);
+        assertThat(actual).usingFieldByFieldElementComparator().containsExactly(newestProducts.toArray(new ProductDomain[newestProducts.size()]));
         return this;
     }
 }
