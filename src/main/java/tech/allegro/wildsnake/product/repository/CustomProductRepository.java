@@ -5,5 +5,5 @@ import tech.allegro.wildsnake.product.model.Product;
 
 public interface CustomProductRepository {
     @Transactional
-    Product createUniqueProduct(Product product);
+    <S extends Product> S createUniqueProduct(S product);
 }

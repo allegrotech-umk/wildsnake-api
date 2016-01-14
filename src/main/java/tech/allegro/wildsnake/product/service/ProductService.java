@@ -39,7 +39,7 @@ public class ProductService {
         productRepository.deleteByName(productName);
     }
 
-    public void createProduct(final ProductDomain productDomain) {
+    public void createUniqueProduct(final ProductDomain productDomain) {
         productRepository.createUniqueProduct(new Product(
                 productDomain.getName(),
                 productDomain.getImageUrl(),

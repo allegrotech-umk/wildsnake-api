@@ -63,10 +63,10 @@ public class ProductsEndPoint {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createProduct(
+    public void addProduct(
             @RequestBody ProductDomain productDomain
     ) {
-        productService.createProduct(productDomain);
+        productService.createUniqueProduct(productDomain);
     }
 
     @RequestMapping(

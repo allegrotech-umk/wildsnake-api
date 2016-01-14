@@ -75,7 +75,7 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
 
         //when
         thenCreateProductByApi();
-        
+
         //then
         assertThat(realProductRepository.findOneByName("product_0")).isNotNull();
     }
