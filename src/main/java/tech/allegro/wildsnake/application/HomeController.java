@@ -30,11 +30,4 @@ public class HomeController {
         model.addAttribute("showcaseItems", showcaseService.getItems());
         return "index";
     }
-
-    @RequestMapping("/products")
-    @ResponseBody
-    public List<ShowcaseItem> products() {
-        return showcaseService.getItems();
-    }
-
 }
