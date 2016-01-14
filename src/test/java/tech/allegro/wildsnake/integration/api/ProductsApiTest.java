@@ -5,11 +5,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
 import tech.allegro.wildsnake.integration.builders.ProductDomainListFactory;
 import tech.allegro.wildsnake.model.ProductDomain;
+import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
 import java.util.List;
@@ -66,6 +70,39 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
                 .newestOf(givenProduct);
     }
 
+    @Test
+    public void should_create_a_product() {
+        // given
+            givenProduct()
+                    .buildNumberOfProductsAndSave(0);
+        // when
+            thenAddOneProductToApi();
+        // then
+            assertThat(realProductRepository.findOneByName("Snake"));
+    }
+
+    @Test
+    public void should_update_existing_product() {
+        // given
+            givenProduct()
+                    .buildNumberOfProductsAndSave(1);
+        // when
+            thenUpdateProductFromApi();
+        // then
+            assertThat(realProductRepository.findOneByName("nowa_nazwa"));
+    }
+
+    @Test
+    public void should_delete_existing_product() {
+        // given
+            givenProduct()
+                    .buildNumberOfProductsAndSave(1);
+        // when
+            thenDeleteOneProductFromApi();
+        // then
+            assertThat(realProductRepository.findOneByName("product_0")).isNull();
+    }
+
     @Before
     public void setup() {
         realProductRepository.deleteAll();
@@ -86,4 +123,34 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
         return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
     }
+
+    private void thenDeleteOneProductFromApi() {
+        template.delete("http://localhost:8080/api/v1/products/product_0");
+    }
+
+    private ProductDomain thenAddOneProductToApi() {
+        String json = ("{name: \"Snake\", {imageUrl: \"link\", {description: \"opis\", {price: \"11\"");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity httpEntity = new HttpEntity(json, httpHeaders);
+
+        ProductDomain result = template.postForEntity("http://localhost:8080/api/v1/products", httpEntity, ProductDomain.class).getBody();
+
+        realProductRepository.save(new Product(result));
+
+        return result;
+    }
+
+    private void thenUpdateProductFromApi() {
+        String json = ("{name: \"Snake\", {imageUrl: \"link\", {description: \"opis\", {price: \"11\"");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity httpEntity = new HttpEntity(json, httpHeaders);
+
+        template.put("http://localhost:8080/api/v1/products/product_0", httpEntity, ProductDomain.class);
+
+
+
+    }
+
 }

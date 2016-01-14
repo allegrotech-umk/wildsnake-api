@@ -2,6 +2,7 @@ package tech.allegro.wildsnake.product.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.allegro.wildsnake.model.ProductDomain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,13 @@ public class Product {
         this.imageUrl = imageUrl;
         this.description = description;
         this.price = price;
+    }
+
+    public Product(ProductDomain productDomain) {
+        this.name = productDomain.getName();
+        this.imageUrl = productDomain.getImageUrl();
+        this.description = productDomain.getDescription();
+        this.price = productDomain.getPrice();
     }
 
     public String getName() {

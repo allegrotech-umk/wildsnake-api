@@ -42,4 +42,16 @@ public class ProductService {
         return (StringUtils.isEmpty(sort) ? null : Sort.Direction.fromString(sort));
     }
 
+    public void deleteProductByName(String name) {
+        productRepository.delete(productRepository.findOneByName(name));
+    }
+
+    public void updateProduct(String name, ProductDomain product) {
+        ProductDomain productDomain = getProduct(name);
+        if (productDomain != null) {
+            productRepository.updateProduct(product.getName(), product.getImageUrl(), product.getDescription(),
+                    product.getPrice(), name);
+        }
+    }
+
 }
