@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
+import tech.allegro.wildsnake.integration.builders.ProductDomainBuilder;
 import tech.allegro.wildsnake.integration.builders.ProductDomainListFactory;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductsApiTest extends WildSnakeIntegrationTest {
 
     private static final int NUMBER_OF_SAVED_PRODUCTS = 6;
+
     @Autowired
     ProductRepository realProductRepository;
 
@@ -66,6 +69,44 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
                 .newestOf(givenProduct);
     }
 
+    @Test
+    public void should_create_a_product() {
+        //given
+
+        //when
+        thenCreateProductByApi();
+        
+        //then
+        assertThat(realProductRepository.findOneByName("product_0")).isNotNull();
+    }
+
+    @Test
+    public void should_update_existing_product() {
+        //given
+        givenProduct()
+                .buildNumberOfProductsAndSave(1);
+
+        //when
+        thenUpdateProductByApi();
+
+        //then
+        assertThat(realProductRepository.findOneByName("product_0"))
+                .isNotNull()
+                .hasFieldOrPropertyWithValue("price", BigDecimal.ONE.setScale(2));
+    }
+
+    @Test
+    public void should_delete_existing_product() {
+        //given
+        givenProduct()
+                .buildNumberOfProductsAndSave(1);
+        //when
+        thenDeleteOneProductFromApi();
+
+        //then
+        assertThat(realProductRepository.findOneByName("product_0")).isNull();
+    }
+
     @Before
     public void setup() {
         realProductRepository.deleteAll();
@@ -85,5 +126,17 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
 
     private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
         return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
+    }
+
+    private void thenCreateProductByApi() {
+        template.put("http://localhost:8080/api/v1/products", new ProductDomainBuilder("product_0").build());
+    }
+
+    private void thenUpdateProductByApi() {
+        template.put("http://localhost:8080/api/v1/products/product_0", new ProductDomainBuilder("product_0").withPrice(BigDecimal.ONE).build());
+    }
+
+    private void thenDeleteOneProductFromApi() {
+        template.delete("http://localhost:8080/api/v1/products/product_0");
     }
 }
