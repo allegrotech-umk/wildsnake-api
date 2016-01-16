@@ -11,11 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
+import tech.allegro.wildsnake.integration.builders.ProductDomainBuilder;
 import tech.allegro.wildsnake.integration.builders.ProductDomainListFactory;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,7 +80,9 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         // when
             thenAddOneProductToApi();
         // then
-            assertThat(realProductRepository.findOneByName("Snake"));
+            assertThat(realProductRepository.findOneByName("Snake"))
+                    .isNotNull()
+                    .hasFieldOrPropertyWithValue("price", BigDecimal.valueOf(10, 2));
     }
 
     @Test
@@ -89,7 +93,9 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         // when
             thenUpdateProductFromApi();
         // then
-            assertThat(realProductRepository.findOneByName("nowa_nazwa"));
+            assertThat(realProductRepository.findOneByName("product_0"))
+                    .isNotNull()
+                    .hasFieldOrPropertyWithValue("price", BigDecimal.valueOf(10, 2));
     }
 
     @Test
@@ -129,28 +135,14 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     }
 
     private ProductDomain thenAddOneProductToApi() {
-        String json = ("{name: \"Snake\", {imageUrl: \"link\", {description: \"opis\", {price: \"11\"");
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity httpEntity = new HttpEntity(json, httpHeaders);
-
-        ProductDomain result = template.postForEntity("http://localhost:8080/api/v1/products", httpEntity, ProductDomain.class).getBody();
-
+        ProductDomain result = template.postForEntity("http://localhost:8080/api/v1/products", new ProductDomainBuilder("Snake").withPrice(BigDecimal.valueOf(10, 2)).build(), ProductDomain.class).getBody();
         realProductRepository.save(new Product(result));
 
         return result;
     }
 
     private void thenUpdateProductFromApi() {
-        String json = ("{name: \"Snake\", {imageUrl: \"link\", {description: \"opis\", {price: \"11\"");
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity httpEntity = new HttpEntity(json, httpHeaders);
-
-        template.put("http://localhost:8080/api/v1/products/product_0", httpEntity, ProductDomain.class);
-
-
-
+        template.put("http://localhost:8080/api/v1/products/product_0", new ProductDomainBuilder("product_0").withPrice(BigDecimal.valueOf(10, 2)).build());
     }
 
 }

@@ -50,9 +50,8 @@ public class ProductsEndPoint {
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
-    public void updateProduct(@PathVariable(value = "name") String name, @RequestBody ProductDomain request) {
-        ProductDomain product = request;
-
+    public void updateProduct(@PathVariable(value = "name") String name, @RequestBody ProductDomain productDomain) {
+        productService.updateProduct(name, productDomain);
     }
 
 }

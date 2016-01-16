@@ -49,7 +49,7 @@ public class ProductService {
     public void updateProduct(String name, ProductDomain product) {
         ProductDomain productDomain = getProduct(name);
         if (productDomain != null) {
-            productRepository.updateProduct(product.getName(), product.getImageUrl(), product.getDescription(),
+            productRepository.updateProduct(product.getImageUrl(), product.getDescription(),
                     product.getPrice(), name);
         }
     }
