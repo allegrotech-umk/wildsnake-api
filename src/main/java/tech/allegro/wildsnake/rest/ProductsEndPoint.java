@@ -2,11 +2,7 @@ package tech.allegro.wildsnake.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.service.ProductService;
 
@@ -41,4 +37,21 @@ public class ProductsEndPoint {
     ) {
         return productService.getProducts(limit, sort);
     }
+
+    @RequestMapping(value = "/{name}",method = RequestMethod.DELETE)
+    public void deleteProduct(@PathVariable(value = "name") String name) {
+        productService.deleteProductByName(name);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ProductDomain addProduct(@RequestBody ProductDomain request) {
+        ProductDomain product = request;
+        return product;
+    }
+
+    @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
+    public void updateProduct(@PathVariable(value = "name") String name, @RequestBody ProductDomain productDomain) {
+        productService.updateProduct(name, productDomain);
+    }
+
 }
