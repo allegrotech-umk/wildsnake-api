@@ -11,6 +11,8 @@ import tech.allegro.wildsnake.integration.Assertion.ShowCaseItemListAssert;
 import tech.allegro.wildsnake.integration.builders.ProductListFactory;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
+import tech.allegro.wildsnake.productCategory.model.ProductCategory;
+import tech.allegro.wildsnake.productCategory.repository.ProductCategoryRepository;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
 import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
@@ -26,6 +28,8 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
     ShowcaseService showcaseService;
     @Autowired
     ProductRepository realProductRepository;
+    @Autowired
+    ProductCategoryRepository productCategoryRepository;
 
     @Test
     public void should_show_main_page() {
@@ -41,8 +45,10 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
     //BDD way
     @Test
     public void shouldRetrieveLast3ProductsFromRepository() {
+        String productCategory = "Gady";
         List<Product> givenProduct = givenProduct()
-                .buildNumberOfProductsAndSave(NUMBER_OF_SAVED_PRODUCTS);
+                .buildNumberOfProductsAndSave(NUMBER_OF_SAVED_PRODUCTS, productCategoryRepository
+                        .findOneByName(productCategory));
 
         List<ShowcaseItem> result = whenRetrivalFromRepositoryOccurs();
 
@@ -54,7 +60,10 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
 
     @Before
     public void setup() {
+
         realProductRepository.deleteAll();
+        productCategoryRepository.deleteAll();
+        productCategoryRepository.save(new ProductCategory("Gady"));
     }
 
 

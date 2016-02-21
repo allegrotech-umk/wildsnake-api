@@ -11,16 +11,19 @@ public class ProductDomain {
     private final String imageUrl;
     private final String description;
     private final BigDecimal price;
+    private final String productCategory;
 
     public ProductDomain(
             @JsonProperty("name") String name,
             @JsonProperty("imageUrl") String imageUrl,
             @JsonProperty("description") String description,
-            @JsonProperty("price") BigDecimal price) {
+            @JsonProperty("price") BigDecimal price,
+            @JsonProperty("productCategory") String productCategory) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
         this.price = price;
+        this.productCategory = productCategory;
     }
 
     public ProductDomain(Product product) {
@@ -28,6 +31,7 @@ public class ProductDomain {
         this.imageUrl = product.getImageUrl();
         this.description = product.getDescription();
         this.price = product.getPrice();
+        this.productCategory = product.getProductCategory().getName();
     }
 
     public String getName() {
@@ -46,13 +50,18 @@ public class ProductDomain {
         return price;
     }
 
+    public String getProductCategory() {
+        return productCategory;
+    }
+
     @Override
     public String toString() {
         return "ProductDomain{" +
-                "name='" + name + '\'' +
+                "description='" + description + '\'' +
+                ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", description='" + description + '\'' +
                 ", price=" + price +
+                ", productCategory='" + productCategory + '\'' +
                 '}';
     }
 }

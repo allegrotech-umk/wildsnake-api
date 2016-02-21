@@ -36,6 +36,8 @@ public class ProductsEndPoint {
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "order", required = false) String sort
     ) {
+//        List<ProductDomain> products = productService.getProducts(limit, sort);
+//        products.stream().forEach( p -> p.ge);
         return productService.getProducts(limit, sort);
     }
 
@@ -54,11 +56,13 @@ public class ProductsEndPoint {
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            value = "//{productCategoryName}"
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addProduct(
-            @RequestBody ProductDomain productDomain, @RequestBody String productCategoryName
+            @RequestBody ProductDomain productDomain, @PathVariable("productCategoryName") String
+            productCategoryName
     ) {
         productService.createUniqueProduct(productDomain, productCategoryName);
     }
