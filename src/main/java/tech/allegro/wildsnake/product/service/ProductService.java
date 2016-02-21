@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
+import tech.allegro.wildsnake.productCategory.repository.ProductCategoryRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +21,13 @@ public class ProductService {
     private static String DEFAULT_SORT_BY_NAME = "name";
 
     private final ProductRepository productRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductCategoryRepository
+            productCategoryRepository) {
         this.productRepository = productRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     public ProductDomain getProduct(final String productName) {
@@ -39,12 +43,13 @@ public class ProductService {
         productRepository.deleteByName(productName);
     }
 
-    public void createUniqueProduct(final ProductDomain productDomain) {
+    public void createUniqueProduct(final ProductDomain productDomain, String productCategoryName) {
         productRepository.createUniqueProduct(new Product(
                 productDomain.getName(),
                 productDomain.getImageUrl(),
                 productDomain.getDescription(),
-                productDomain.getPrice()));
+                productDomain.getPrice(),
+                productCategoryRepository.findOneByName(productCategoryName)));
     }
 
     public void updateProduct(final String productName, final ProductDomain productDomain) {
