@@ -3,13 +3,7 @@ package tech.allegro.wildsnake.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.service.ProductService;
 
@@ -42,6 +36,8 @@ public class ProductsEndPoint {
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "order", required = false) String sort
     ) {
+//        List<ProductDomain> products = productService.getProducts(limit, sort);
+//        products.stream().forEach( p -> p.ge);
         return productService.getProducts(limit, sort);
     }
 
@@ -60,13 +56,15 @@ public class ProductsEndPoint {
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            value = "//{productCategoryName}"
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addProduct(
-            @RequestBody ProductDomain productDomain
+            @RequestBody ProductDomain productDomain, @PathVariable("productCategoryName") String
+            productCategoryName
     ) {
-        productService.createUniqueProduct(productDomain);
+        productService.createUniqueProduct(productDomain, productCategoryName);
     }
 
     @RequestMapping(
