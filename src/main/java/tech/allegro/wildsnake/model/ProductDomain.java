@@ -1,33 +1,18 @@
-package tech.allegro.wildsnake.product.model;
+package tech.allegro.wildsnake.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.allegro.wildsnake.product.model.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Entity
-public class Product {
+public class ProductDomain {
 
     private final String name;
     private final String imageUrl;
     private final String description;
     private final BigDecimal price;
-    @Id
-    @GeneratedValue
-    private long id;
 
-    public Product() {
-        this.name = null;
-        this.imageUrl = null;
-        this.description = null;
-        this.price = null;
-    }
-
-    @JsonCreator
-    public Product(
+    public ProductDomain(
             @JsonProperty("name") String name,
             @JsonProperty("imageUrl") String imageUrl,
             @JsonProperty("description") String description,
@@ -36,6 +21,13 @@ public class Product {
         this.imageUrl = imageUrl;
         this.description = description;
         this.price = price;
+    }
+
+    public ProductDomain(Product product) {
+        this.name = product.getName();
+        this.imageUrl = product.getImageUrl();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
     }
 
     public String getName() {
@@ -56,12 +48,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductDomain{" +
                 "name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", id=" + id +
                 '}';
     }
 }

@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import tech.allegro.wildsnake.integration.Assertion.ShowCaseItemResultAssert;
+import tech.allegro.wildsnake.integration.Assertion.ShowCaseItemListAssert;
 import tech.allegro.wildsnake.integration.builders.ProductListFactory;
+import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
+import tech.allegro.wildsnake.product.service.ShowcaseService;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
-import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
 import java.util.List;
 
@@ -21,6 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
 
     private static final int NUMBER_OF_SAVED_PRODUCTS = 6;
+    @Autowired
+    ShowcaseService showcaseService;
+    @Autowired
+    ProductRepository realProductRepository;
 
     @Test
     public void should_show_main_page() {
@@ -36,24 +41,16 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
     //BDD way
     @Test
     public void shouldRetrieveLast3ProductsFromRepository() {
-        givenProduct()
+        List<Product> givenProduct = givenProduct()
                 .buildNumberOfProductsAndSave(NUMBER_OF_SAVED_PRODUCTS);
 
-        whenRetrivalFromRepositoryOccurs();
+        List<ShowcaseItem> result = whenRetrivalFromRepositoryOccurs();
 
-        thenResult()
+        ShowCaseItemListAssert.assertThat(result)
                 .isSuccessful()
                 .hasNumberOfItems(3)
-                .newest();
+                .newestOf(givenProduct);
     }
-
-    @Autowired
-    ShowcaseService showcaseService;
-
-    @Autowired
-    ProductRepository realProductRepository;
-
-    private List<ShowcaseItem> result;
 
     @Before
     public void setup() {
@@ -65,11 +62,7 @@ public class WildsnakeApplicationTests extends WildSnakeIntegrationTest {
         return new ProductListFactory(realProductRepository);
     }
 
-    private void whenRetrivalFromRepositoryOccurs() {
-        this.result = showcaseService.getItems();
-    }
-
-    private ShowCaseItemResultAssert thenResult() {
-        return new ShowCaseItemResultAssert(result, NUMBER_OF_SAVED_PRODUCTS);
+    private List<ShowcaseItem> whenRetrivalFromRepositoryOccurs() {
+        return showcaseService.getItems();
     }
 }

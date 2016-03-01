@@ -36,9 +36,10 @@ public class ProductResultAssert {
             expectedProducts.add(new ProductBuilder(String.format("product_%s", number)).build());
         });
         IntStream.range(0, limit).forEach(index -> {
-            assertThat(expectedProducts.get(storedNumber - (index) - 1).getName()).isEqualTo(result.get(index).getName());
-            assertThat(expectedProducts.get(storedNumber - (index) - 1).getImageUrl()).isEqualTo(result.get(index).getImageUrl());
-            assertThat(expectedProducts.get(storedNumber - (index) - 1).getPrice()).isEqualTo(result.get(index).getPrice());
+            System.out.println(result.get(limit - index - 1).getName());
+            assertThat(expectedProducts.get(storedNumber - (limit - index)).getName()).isEqualTo(result.get(limit - index - 1).getName());
+            assertThat(expectedProducts.get(storedNumber - (limit - index)).getImageUrl()).isEqualTo(result.get(limit - index - 1).getImageUrl());
+            assertThat(expectedProducts.get(storedNumber - (limit - index)).getPrice()).isEqualTo(result.get(limit - index - 1).getPrice());
         });
         return this;
     }

@@ -6,11 +6,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import tech.allegro.wildsnake.integration.Assertion.ProductResultAssert;
+import tech.allegro.wildsnake.integration.Assertion.ProductListAssert;
 import tech.allegro.wildsnake.integration.WildSnakeIntegrationTest;
-import tech.allegro.wildsnake.integration.builders.ProductBuilder;
-import tech.allegro.wildsnake.integration.builders.ProductListFactory;
-import tech.allegro.wildsnake.product.model.Product;
+import tech.allegro.wildsnake.integration.builders.ProductDomainListFactory;
+import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         givenProduct()
                 .buildNumberOfProductsAndSave(0);
 
-        List<Product> products = thenGetProductsFromApi();
+        List<ProductDomain> products = thenGetProductsFromApi();
 
         assertThat(products).isEmpty();
     }
@@ -39,32 +38,32 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         givenProduct()
                 .buildNumberOfProductsAndSave(3);
 
-        List<Product> products = thenGetProductsFromApi();
+        List<ProductDomain> products = thenGetProductsFromApi();
 
         assertThat(products).hasSize(3);
     }
 
     @Test
     public void should_get_one_product() {
-        givenProduct()
+        List<ProductDomain> givenProducts = givenProduct()
                 .buildNumberOfProductsAndSave(1);
 
-        Product product = thenGetOneProductFromApi();
+        ProductDomain product = thenGetOneProductFromApi();
 
-        assertThat(product).isEqualToComparingFieldByField(new ProductBuilder(String.format("product_%s", 0)).build());
+        assertThat(givenProducts.get(0)).isEqualToComparingFieldByField(product);
     }
 
     @Test
     public void should_get_three_newest_products() {
-        givenProduct()
+        List<ProductDomain> givenProduct = givenProduct()
                 .buildNumberOfProductsAndSave(6);
 
-        List<Product> products = thenGet3NewestProductsFromApi();
+        List<ProductDomain> products = thenGetNumberOfNewestProductsFromApi(3);
 
-        thenResult(products)
+        ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(3)
-                .newest();
+                .newestOf(givenProduct);
     }
 
     @Before
@@ -72,24 +71,19 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         realProductRepository.deleteAll();
     }
 
-    private ProductListFactory givenProduct() {
-        return new ProductListFactory(realProductRepository);
+    private ProductDomainListFactory givenProduct() {
+        return new ProductDomainListFactory(realProductRepository);
     }
 
-    private List<Product> thenGetProductsFromApi() {
-        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products", Product[].class).getBody());
+    private List<ProductDomain> thenGetProductsFromApi() {
+        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products", ProductDomain[].class).getBody());
     }
 
-    private Product thenGetOneProductFromApi() {
-        return template.getForEntity("http://localhost:8080/api/v1/products/product_0", Product.class).getBody();
+    private ProductDomain thenGetOneProductFromApi() {
+        return template.getForEntity("http://localhost:8080/api/v1/products/product_0", ProductDomain.class).getBody();
     }
 
-    private List<Product> thenGet3NewestProductsFromApi() {
-        return Lists.newArrayList(template.getForEntity("http://localhost:8080/api/v1/products?order=desc&limit=3", Product[].class).getBody());
+    private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
     }
-
-    private ProductResultAssert thenResult(List<Product> products) {
-        return new ProductResultAssert(products, NUMBER_OF_SAVED_PRODUCTS);
-    }
-
 }
