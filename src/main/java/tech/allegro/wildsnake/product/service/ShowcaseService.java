@@ -1,4 +1,4 @@
-package tech.allegro.wildsnake.showcase.service;
+package tech.allegro.wildsnake.product.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

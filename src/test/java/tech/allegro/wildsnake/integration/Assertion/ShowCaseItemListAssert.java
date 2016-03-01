@@ -10,28 +10,28 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ShowCaseItemResultAssert {
+public class ShowCaseItemListAssert {
     private int limit = 1;
     private int storedNumber;
     private List<ShowcaseItem> result;
 
-    public ShowCaseItemResultAssert(List<ShowcaseItem> actual, int numberOfSavedProducts) {
+    public ShowCaseItemListAssert(List<ShowcaseItem> actual, int numberOfSavedProducts) {
         this.result = actual;
         this.storedNumber = numberOfSavedProducts;
     }
 
-    public ShowCaseItemResultAssert isSuccessful() {
+    public ShowCaseItemListAssert isSuccessful() {
         assertThat(result).isNotNull();
         return this;
     }
 
-    public ShowCaseItemResultAssert hasNumberOfItems(int number) {
+    public ShowCaseItemListAssert hasNumberOfItems(int number) {
         this.limit = number;
         assertThat(result.size()).isEqualTo(number);
         return this;
     }
 
-    public ShowCaseItemResultAssert newest() {
+    public ShowCaseItemListAssert newest() {
         List<Product> expectedProducts = new ArrayList<>();
         IntStream.range(0, storedNumber).forEach(number -> {
             expectedProducts.add(new ProductBuilder(String.format("product_%s", number)).build());
