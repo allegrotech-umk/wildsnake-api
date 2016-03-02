@@ -12,20 +12,19 @@
 <div class="container" ng-controller="WildsnakeCtrl as ctrl">
   <img src="images/logo.png" alt="wildsnake" class="logo"/>
 
-  <h1>Top products</h1>
-  <div class="product-images">
-    <ul class="product-list">
-      <li class="product" ng-repeat="product in ctrl.products">
-        <div class="product-img">
-          <img src="http://thumbs.dreamstime.com/t/snake-25369252.jpg"/>
-        </div>
-        <div class="product-desc">
-          <h5 class="product-name">[[product.name]]</h5>
-          <h5 class="product-price">[[product.price]] PLN</h5>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <p class="text">{{ pageMessage }}</p>
+
+  <h1 class="products-header">Top products</h1>
+
+  <ul class="product-grid">
+    <li class="item" ng-repeat="product in ctrl.products">
+      <img class="product-image" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=180%C3%97160&w=180&h=160"/>
+      <div class="bottom-row">
+        <div class="pull-left">[[product.name]]</div>
+        <div class="pull-right">[[product.price]]</div>
+      </div>
+    </li>
+  </ul>
 </div>
 <script src="scripts/angular.js"></script>
 </body>
