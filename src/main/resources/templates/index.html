@@ -5,20 +5,27 @@
   <title>wilde snake</title>
   <link rel="stylesheet" media="all" type="text/css" href="css/normalize.css"/>
   <link rel="stylesheet" media="all" type="text/css" href="css/styles.css"/>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 <body>
 <div class="container" ng-controller="WildsnakeCtrl as ctrl">
   <img src="images/logo.png" alt="wildsnake" class="logo"/>
 
-  <p class="text">{{ pageMessage }}</p>
-
-  <h1>Top products with price</h1>
-  <ul class="products">
-    <li ng-repeat="product in ctrl.products">
-      [[product.title]] - [[product.price]]
-    </li>
-  </ul>
+  <h1>Top products</h1>
+  <div class="product-images">
+    <ul class="product-list">
+      <li class="product" ng-repeat="product in ctrl.products">
+        <div class="product-img">
+          <img src="http://thumbs.dreamstime.com/t/snake-25369252.jpg"/>
+        </div>
+        <div class="product-desc">
+          <h5 class="product-name">[[product.name]]</h5>
+          <h5 class="product-price">[[product.price]] PLN</h5>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 <script src="scripts/angular.js"></script>
 </body>

@@ -49,4 +49,55 @@ body {
   background: linear-gradient(to right, #fff 0, #6ecbd4 15%, #6ecbd4 85%, #fff 100%)
 }
 
+.product-images {
+  width: 100%;
+  min-height: 300px;
+  height: auto;
+}
 
+.product-list {
+  display: block;
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.product {
+  width: 180px;
+  height: 200px;
+  float: left;
+  display: inline;
+  margin: 0 5px 20px 10px;
+  background-color: yellow;
+}
+
+.product-img {
+  width: 100%;
+  height: 160px;
+  background: green;
+}
+
+.product-desc {
+  width: 100%;
+  height: 38px;
+  background: white;
+  border-bottom: 2px #dbdbdb solid;
+}
+
+h5 {
+  margin: 10px 5px 0 5px;
+  padding: 0;
+  color: black;
+  font-size: 12px;
+  font-family: 'Source Sans Pro', Arial, Helvetica;
+}
+
+.product-name {
+  float: left;
+}
+
+.product-price {
+  float: right;
+}
