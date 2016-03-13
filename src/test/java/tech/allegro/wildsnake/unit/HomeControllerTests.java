@@ -7,15 +7,17 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 import tech.allegro.wildsnake.application.HomeController;
 import tech.allegro.wildsnake.integration.builders.ShowCaseItemBuilder;
-import tech.allegro.wildsnake.product.service.ShowcaseService;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
+import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class HomeControllerTests {

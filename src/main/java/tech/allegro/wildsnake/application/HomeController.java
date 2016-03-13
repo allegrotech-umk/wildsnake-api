@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import tech.allegro.wildsnake.product.service.ShowcaseService;
+import org.springframework.web.bind.annotation.ResponseBody;
+import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
+import tech.allegro.wildsnake.showcase.service.ShowcaseService;
+
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -26,6 +30,4 @@ public class HomeController {
         model.addAttribute("showcaseItems", showcaseService.getItems());
         return "index";
     }
-    
-
 }

@@ -7,8 +7,8 @@ import tech.allegro.wildsnake.integration.builders.ProductBuilder;
 import tech.allegro.wildsnake.integration.builders.ShowCaseItemBuilder;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
-import tech.allegro.wildsnake.product.service.ShowcaseService;
 import tech.allegro.wildsnake.showcase.model.ShowcaseItem;
+import tech.allegro.wildsnake.showcase.service.ShowcaseService;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

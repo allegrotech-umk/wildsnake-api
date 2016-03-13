@@ -14,6 +14,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long>, CustomProductRepository {
+
     List<Product> findFirst3ByOrderByIdDesc();
 
     Product findOneByName(String name);

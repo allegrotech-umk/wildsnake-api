@@ -22,4 +22,3 @@ sonar-project.properties
 # netbeans
 .nb-gradle
 
-node_modules/

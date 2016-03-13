@@ -30,4 +30,5 @@ public class WildsnakeApplicationTests {
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(entity.getBody()).contains("Under construction");
     }
+
 }

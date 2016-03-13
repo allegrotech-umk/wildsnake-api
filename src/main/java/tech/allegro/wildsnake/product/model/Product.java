@@ -62,7 +62,6 @@ public class Product {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", id=" + id +
                 '}';
     }
 }
