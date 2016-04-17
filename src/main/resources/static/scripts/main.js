@@ -1,20 +1,12 @@
-(function (document, window) {
-  'use strict';
+function wildsnakeCtrl($http) {
+  $http.get('/api/v1/products').then(response => this.products = response.data);
+}
 
-  let container = document.querySelector(".products");
+function wildsnakeConfig ($interpolateProvider) {
+  $interpolateProvider.startSymbol('[[').endSymbol(']]');
+}
 
-  function insert(object) {
-    let productElement = document.createElement("li");
-    productElement.innerHTML = object.title;
-    container.appendChild(productElement);
-  }
+angular.module('wildsnake', [])
+  .config(wildsnakeConfig)
+  .controller('WildsnakeCtrl', wildsnakeCtrl);
 
-  function getProducts() {
-    window.fetch("/products")
-      .then(response => response.json())
-      .then(products => products.forEach(insert));
-  }
-
-  document.addEventListener("DOMContentLoaded", getProducts);
-
-})(document, window);
