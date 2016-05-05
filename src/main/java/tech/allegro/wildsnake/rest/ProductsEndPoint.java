@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.service.ProductService;
 
@@ -26,6 +27,7 @@ public class ProductsEndPoint {
         this.productService = productService;
     }
 
+    @CrossOrigin
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/{productName}"
@@ -34,6 +36,7 @@ public class ProductsEndPoint {
         return productService.getProduct(productName);
     }
 
+    @CrossOrigin
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -45,6 +48,7 @@ public class ProductsEndPoint {
         return productService.getProducts(limit, sort);
     }
 
+    @CrossOrigin
     @RequestMapping(
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -58,6 +62,7 @@ public class ProductsEndPoint {
         productService.updateProduct(productName, productDomain);
     }
 
+    @CrossOrigin
     @RequestMapping(
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -69,6 +74,7 @@ public class ProductsEndPoint {
         productService.createUniqueProduct(productDomain);
     }
 
+    @CrossOrigin
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/{productName}"
