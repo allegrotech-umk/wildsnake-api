@@ -35,9 +35,14 @@ public class ProductService {
         return new ProductDomain(productRepository.findOneByName(productName));
     }
 
-    public List<ProductDomain> getProducts(final Integer size, final String sort, String name, Integer priceMin, Integer priceMax) {
-        PageRequest pageRequest = new PageRequest(FIRST_PAGE, setReturnSize(size), setSortDirection(sort), DEFAULT_SORT_BY_NAME);
+    public List<ProductDomain> getProducts(final Integer page,final Integer size, final String sort, String name, Integer priceMin, Integer priceMax) {
+        PageRequest pageRequest = new PageRequest(setPage(page), setReturnSize(size), setSortDirection(sort), DEFAULT_SORT_BY_NAME);
         return productRepository.findByPriceBetweenAndNameIgnoreCaseContaining(pageRequest,setPriceMin(priceMin),setPriceMax(priceMax),setName(name)).getContent().stream().map(ProductDomain::new).collect(Collectors.toList());
+    }
+
+    public Integer getTotalPages(final Integer page,final Integer size, final String sort, String name, Integer priceMin, Integer priceMax) {
+        PageRequest pageRequest = new PageRequest(setPage(page), setReturnSize(size), setSortDirection(sort), DEFAULT_SORT_BY_NAME);
+        return productRepository.findByPriceBetweenAndNameIgnoreCaseContaining(pageRequest,setPriceMin(priceMin),setPriceMax(priceMax),setName(name)).getTotalPages();
     }
 
     public void deleteProduct(final String productName) {
@@ -58,6 +63,10 @@ public class ProductService {
                 productDomain.getDescription(),
                 productDomain.getPrice(),
                 productName);
+    }
+
+    private int setPage(final Integer page) {
+        return (Objects.isNull(page) || page<1  ? FIRST_PAGE : page-1);
     }
 
     private int setReturnSize(final Integer size) {

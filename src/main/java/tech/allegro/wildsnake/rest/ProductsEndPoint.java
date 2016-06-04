@@ -23,7 +23,7 @@ public class ProductsEndPoint {
     @CrossOrigin
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/{productName}"
+            value = "/product/{productName}"
     )
     public ProductDomain getProduct(@PathVariable("productName") String productName) {
         return productService.getProduct(productName);
@@ -35,14 +35,32 @@ public class ProductsEndPoint {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public List<ProductDomain> getProducts(
+            @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "order", required = false) String sort,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "priceMin",required = false) Integer priceMin,
             @RequestParam(value = "priceMax",required = false) Integer priceMax
     ) {
-        return productService.getProducts(limit, sort,name,priceMin,priceMax);
+        return productService.getProducts(page,limit, sort,name,priceMin,priceMax);
     }
+
+    @CrossOrigin
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/totalPages"
+    )
+    public Integer getProductsTotalPages(
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit,
+            @RequestParam(value = "order", required = false) String sort,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "priceMin",required = false) Integer priceMin,
+            @RequestParam(value = "priceMax",required = false) Integer priceMax
+    ) {
+        return productService.getTotalPages(page,limit, sort,name,priceMin,priceMax);
+    }
+
 
     @CrossOrigin
     @RequestMapping(

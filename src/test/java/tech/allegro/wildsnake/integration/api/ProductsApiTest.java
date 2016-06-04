@@ -108,27 +108,28 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     }
 
     @Test
-    public void should_filter_products_by_price_between(){
+    public void should_filter_products_by_price_between() {
         //given
         List<ProductDomain> givenProduct = givenProduct()
                 .buildNumberOfProductsWithCustomPriceAndSave(6);
-        BigDecimal priceMin=BigDecimal.ZERO;
-        BigDecimal priceMax=BigDecimal.TEN;
+        BigDecimal priceMin = BigDecimal.ZERO;
+        BigDecimal priceMax = BigDecimal.TEN;
         //when
-        List<ProductDomain> products = thenFilterProductFromApiByPrice(priceMin,priceMax);
+        List<ProductDomain> products = thenFilterProductFromApiByPrice(priceMin, priceMax);
 
         //then
         ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(3)
-                .hasPriceBetween(priceMin,priceMax,givenProduct);
+                .hasPriceBetween(priceMin, priceMax, givenProduct);
     }
+
     @Test
-    public void should_filter_products_by_name_contains(){
+    public void should_filter_products_by_name_contains() {
         //given
         List<ProductDomain> givenProduct = givenProduct()
                 .buildNumberOfProductsWithCustomPriceAndSave(6);
-        String name="_0";
+        String name = "_0";
         //when
         List<ProductDomain> products = thenFilterProductFromApiContainsName(name);
 
@@ -136,8 +137,37 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(1)
-                .withNameContains(name,givenProduct);
+                .withNameContains(name, givenProduct);
     }
+
+    @Test
+    public void should_get_totalPages() {
+        //given
+        givenProduct()
+                .buildNumberOfProductsAndSave(25);
+        //when
+        Integer totalPages = thenGetTotalPages();
+
+        //then
+        assertThat(totalPages).isEqualTo(2);
+
+    }
+
+    @Test
+    public void should_get_total_pages_with_limit_by_price() {
+        //given
+        givenProduct().buildNumberOfProductsAndSave(15);
+        Integer limit=4;
+        BigDecimal priceMin = BigDecimal.ZERO;
+        BigDecimal priceMax = BigDecimal.TEN;
+        //when
+        Integer totalPages = thenGetTotalPagesWithLimitAndPriceBetween(limit,priceMin,priceMax);
+
+        //then
+        assertThat(totalPages).isEqualTo(4);
+
+    }
+
 
     @Before
     public void setup() {
@@ -153,14 +183,15 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     }
 
     private ProductDomain thenGetOneProductFromApi() {
-        return template.getForEntity("http://localhost:8080/api/v1/products/product_0", ProductDomain.class).getBody();
+        return template.getForEntity("http://localhost:8080/api/v1/products/product/product_0", ProductDomain.class).getBody();
     }
 
     private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
         return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
     }
+
     private List<ProductDomain> thenFilterProductFromApiByPrice(BigDecimal priceMin, BigDecimal priceMax) {
-        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?priceMin=%d&priceMax=%d", priceMin.intValue(),priceMax.intValue()), ProductDomain[].class).getBody());
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?priceMin=%d&priceMax=%d", priceMin.intValue(), priceMax.intValue()), ProductDomain[].class).getBody());
     }
 
     private void thenCreateProductByApi() {
@@ -177,6 +208,13 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
 
     private List<ProductDomain> thenFilterProductFromApiContainsName(String name) {
         return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?name=%s", name), ProductDomain[].class).getBody());
+    }
+
+    private Integer thenGetTotalPages() {
+        return template.getForEntity("http://localhost:8080/api/v1/products/totalPages", Integer.class).getBody();
+    }
+    private Integer thenGetTotalPagesWithLimitAndPriceBetween(Integer limit, BigDecimal priceMin, BigDecimal priceMax) {
+        return template.getForEntity(String.format("http://localhost:8080/api/v1/products/totalPages?limit=%s&priceMin=%d&priceMax=%d",limit,priceMin.intValue(),priceMax.intValue()) ,Integer.class).getBody();
     }
 
 }
