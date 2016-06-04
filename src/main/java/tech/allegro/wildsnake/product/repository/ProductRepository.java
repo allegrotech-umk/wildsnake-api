@@ -15,6 +15,8 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long>, CustomProductRepository {
 
+    Page<Product> findByPriceBetweenAndNameIgnoreCaseContaining(Pageable pageable,BigDecimal priceMin,BigDecimal priceMax,String name);
+
     List<Product> findFirst3ByOrderByIdDesc();
 
     Product findOneByName(String name);
