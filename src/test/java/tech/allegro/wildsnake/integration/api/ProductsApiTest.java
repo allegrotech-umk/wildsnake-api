@@ -121,7 +121,7 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(3)
-                .hasPriceBetween(priceMin,priceMax,givenProduct);
+                .hasPriceBetween(priceMin,priceMax);
     }
     @Test
     public void should_filter_products_by_name_contains(){
@@ -129,14 +129,16 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         List<ProductDomain> givenProduct = givenProduct()
                 .buildNumberOfProductsWithCustomPriceAndSave(6);
         String name="_0";
+        String expectedName="product_0";
         //when
         List<ProductDomain> products = thenFilterProductFromApiContainsName(name);
+
 
         //then
         ProductListAssert.assertThat(products)
                 .isSuccessful()
                 .hasNumberOfItems(1)
-                .withNameContains(name,givenProduct);
+                .withExpectedName(expectedName);
     }
 
     @Before
