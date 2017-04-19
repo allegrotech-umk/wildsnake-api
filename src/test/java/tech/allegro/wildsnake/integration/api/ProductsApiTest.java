@@ -107,6 +107,40 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
         assertThat(realProductRepository.findOneByName("product_0")).isNull();
     }
 
+    @Test
+    public void should_filter_products_by_price_between(){
+        //given
+        List<ProductDomain> givenProduct = givenProduct()
+                .buildNumberOfProductsWithCustomPriceAndSave(6);
+        BigDecimal priceMin=BigDecimal.ZERO;
+        BigDecimal priceMax=BigDecimal.TEN;
+        //when
+        List<ProductDomain> products = thenFilterProductFromApiByPrice(priceMin,priceMax);
+
+        //then
+        ProductListAssert.assertThat(products)
+                .isSuccessful()
+                .hasNumberOfItems(3)
+                .hasPriceBetween(priceMin,priceMax);
+    }
+    @Test
+    public void should_filter_products_by_name_contains(){
+        //given
+        List<ProductDomain> givenProduct = givenProduct()
+                .buildNumberOfProductsWithCustomPriceAndSave(6);
+        String name="_0";
+        String expectedName="product_0";
+        //when
+        List<ProductDomain> products = thenFilterProductFromApiContainsName(name);
+
+
+        //then
+        ProductListAssert.assertThat(products)
+                .isSuccessful()
+                .hasNumberOfItems(1)
+                .withExpectedName(expectedName);
+    }
+
     @Before
     public void setup() {
         realProductRepository.deleteAll();
@@ -127,6 +161,9 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     private List<ProductDomain> thenGetNumberOfNewestProductsFromApi(int number) {
         return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?order=desc&limit=%s", number), ProductDomain[].class).getBody());
     }
+    private List<ProductDomain> thenFilterProductFromApiByPrice(BigDecimal priceMin, BigDecimal priceMax) {
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?priceMin=%d&priceMax=%d", priceMin.intValue(),priceMax.intValue()), ProductDomain[].class).getBody());
+    }
 
     private void thenCreateProductByApi() {
         template.put("http://localhost:8080/api/v1/products", new ProductDomainBuilder("product_0").build());
@@ -139,4 +176,9 @@ public class ProductsApiTest extends WildSnakeIntegrationTest {
     private void thenDeleteOneProductFromApi() {
         template.delete("http://localhost:8080/api/v1/products/product_0");
     }
+
+    private List<ProductDomain> thenFilterProductFromApiContainsName(String name) {
+        return Lists.newArrayList(template.getForEntity(String.format("http://localhost:8080/api/v1/products?name=%s", name), ProductDomain[].class).getBody());
+    }
+
 }

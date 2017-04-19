@@ -9,6 +9,7 @@ import tech.allegro.wildsnake.model.ProductDomain;
 import tech.allegro.wildsnake.product.model.Product;
 import tech.allegro.wildsnake.product.repository.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -17,7 +18,11 @@ import java.util.stream.Collectors;
 public class ProductService {
     private static int PAGE_LIMIT = 20;
     private static int FIRST_PAGE = 0;
+    private static String NAME="";
     private static String DEFAULT_SORT_BY_NAME = "name";
+    private static BigDecimal PRICE_MIN=BigDecimal.ZERO;
+    private static BigDecimal PRICE_MAX=BigDecimal.valueOf(Long.MAX_VALUE);
+
 
     private final ProductRepository productRepository;
 
@@ -30,9 +35,9 @@ public class ProductService {
         return new ProductDomain(productRepository.findOneByName(productName));
     }
 
-    public List<ProductDomain> getProducts(final Integer size, final String sort) {
+    public List<ProductDomain> getProducts(final Integer size, final String sort, String name, Integer priceMin, Integer priceMax) {
         PageRequest pageRequest = new PageRequest(FIRST_PAGE, setReturnSize(size), setSortDirection(sort), DEFAULT_SORT_BY_NAME);
-        return productRepository.findAll(pageRequest).getContent().stream().map(ProductDomain::new).collect(Collectors.toList());
+        return productRepository.findByPriceBetweenAndNameIgnoreCaseContaining(pageRequest,setPriceMin(priceMin),setPriceMax(priceMax),setName(name)).getContent().stream().map(ProductDomain::new).collect(Collectors.toList());
     }
 
     public void deleteProduct(final String productName) {
@@ -57,6 +62,16 @@ public class ProductService {
 
     private int setReturnSize(final Integer size) {
         return (Objects.isNull(size) ? PAGE_LIMIT : size.intValue());
+    }
+
+    private BigDecimal setPriceMin(final Integer priceMin){
+        return (Objects.isNull(priceMin)? PRICE_MIN:BigDecimal.valueOf(priceMin.longValue()));
+    }
+    private BigDecimal setPriceMax(final Integer priceMax){
+        return (Objects.isNull(priceMax)? PRICE_MAX:BigDecimal.valueOf(priceMax.longValue()));
+    }
+    private String setName(final String name){
+        return (Objects.isNull(name)? NAME:name);
     }
 
     private Sort.Direction setSortDirection(final String sort) {
